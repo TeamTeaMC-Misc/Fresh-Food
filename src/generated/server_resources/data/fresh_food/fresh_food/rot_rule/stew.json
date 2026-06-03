@@ -1,10 +1,10 @@
 {
   "inputs": {
-    "items": "#rotborn:rot_result/sour_milk"
+    "items": "#fresh_food:rot_result/sour_stew"
   },
   "keep_count": false,
   "result": {
-    "id": "rotborn:sour_milk"
+    "id": "fresh_food:sour_stew"
   },
   "rot_after_ticks": 168000
 }

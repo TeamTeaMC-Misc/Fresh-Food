@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "rotborn:item/sour_milk"
+    "layer0": "fresh_food:item/sour_milk"
   }
 }

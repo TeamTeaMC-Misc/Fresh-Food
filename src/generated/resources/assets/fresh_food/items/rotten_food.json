@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "rotborn:item/sour_milk"
+    "model": "fresh_food:item/rotten_food"
   }
 }

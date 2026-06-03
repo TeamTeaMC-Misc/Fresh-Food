@@ -4,9 +4,9 @@
     "minecraft:spider_eye",
     "minecraft:fermented_spider_eye",
     "minecraft:honey_bottle",
-    "rotborn:rotten_food",
-    "rotborn:sour_stew",
-    "rotborn:sour_milk",
+    "fresh_food:rotten_food",
+    "fresh_food:sour_stew",
+    "fresh_food:sour_milk",
     "#c:foods/golden"
   ]
 }
