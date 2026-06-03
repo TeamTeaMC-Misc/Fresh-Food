@@ -1,0 +1,21 @@
+{
+  "item.rotborn.rotten_food": "腐烂食物",
+  "item.rotborn.spoiled_apple": "腐坏苹果",
+  "item.rotborn.moldy_bread": "发霉面包",
+  "item.rotborn.spoiled_meat": "变质肉",
+  "item.rotborn.sour_stew": "酸败炖菜",
+  "item.rotborn.moldy_carrot": "发霉胡萝卜",
+  "item.rotborn.spoiled_egg": "臭鸡蛋",
+  "item.rotborn.fermented_mushroom": "发酵蘑菇",
+  "item.rotborn.sour_milk": "馊牛奶",
+  "block.rotborn.rotting_hay_bale": "腐烂稻草捆",
+  "block.rotborn.rotting_melon": "腐烂西瓜",
+  "block.rotborn.rotting_pumpkin": "腐烂南瓜",
+  "block.rotborn.rotting_crops": "枯萎作物",
+  "block.rotborn.ice_box": "冷藏箱",
+  "tooltip.rotborn.freshness.fresh_days": "新鲜——剩余 %s 天",
+  "tooltip.rotborn.freshness.stale_days": "不太新鲜——剩余 %s 天",
+  "tooltip.rotborn.freshness.spoiling_days": "快要腐烂——剩余 %s 天",
+  "tooltip.rotborn.freshness.spoiled": "已腐烂",
+  "itemGroup.rotborn": "腐生"
+}

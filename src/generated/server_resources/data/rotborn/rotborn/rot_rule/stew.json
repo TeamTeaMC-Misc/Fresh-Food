@@ -1,0 +1,10 @@
+{
+  "inputs": {
+    "items": "#rotborn:rot_result/sour_stew"
+  },
+  "keep_count": false,
+  "result": {
+    "id": "rotborn:sour_stew"
+  },
+  "rot_after_ticks": 168000
+}

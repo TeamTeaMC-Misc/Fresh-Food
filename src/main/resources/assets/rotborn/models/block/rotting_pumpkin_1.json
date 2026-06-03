@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "rotborn:block/rotting_pumpkin_1"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:rotten_flesh",
+    "minecraft:spider_eye",
+    "minecraft:fermented_spider_eye",
+    "minecraft:honey_bottle",
+    "rotborn:rotten_food",
+    "rotborn:sour_stew",
+    "rotborn:sour_milk",
+    "#c:foods/golden"
+  ]
+}

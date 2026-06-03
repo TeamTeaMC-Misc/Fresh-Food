@@ -1,0 +1,20 @@
+{
+  "item.rotborn.rotten_food": "Rotten Food",
+  "item.rotborn.spoiled_apple": "Spoiled Apple",
+  "item.rotborn.moldy_bread": "Moldy Bread",
+  "item.rotborn.spoiled_meat": "Spoiled Meat",
+  "item.rotborn.sour_stew": "Sour Stew",
+  "item.rotborn.moldy_carrot": "Moldy Carrot",
+  "item.rotborn.spoiled_egg": "Spoiled Egg",
+  "item.rotborn.fermented_mushroom": "Fermented Mushroom",
+  "item.rotborn.sour_milk": "Sour Milk",
+  "block.rotborn.rotting_hay_bale": "Rotting Hay Bale",
+  "block.rotborn.rotting_melon": "Rotting Melon",
+  "block.rotborn.rotting_pumpkin": "Rotting Pumpkin",
+  "block.rotborn.rotting_crops": "Withered Crops",
+  "block.rotborn.ice_box": "Cooler Box",
+  "tooltip.rotborn.freshness.fresh_days": "Fresh — %s days left",
+  "tooltip.rotborn.freshness.stale_days": "Stale — %s days left",
+  "tooltip.rotborn.freshness.spoiling_days": "Going bad — %s days left",
+  "tooltip.rotborn.freshness.spoiled": "Spoiled","itemGroup.rotborn": "Rotborn"
+}

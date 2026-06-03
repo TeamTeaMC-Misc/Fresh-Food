@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "rot_age=0": { "model": "rotborn:block/rotting_crops_0" },
+    "rot_age=1": { "model": "rotborn:block/rotting_crops_1" },
+    "rot_age=2": { "model": "rotborn:block/rotting_crops_2" }
+  }
+}
