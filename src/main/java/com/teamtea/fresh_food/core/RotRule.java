@@ -10,10 +10,8 @@ import com.teamtea.fresh_food.registry.RottingRegistry;
 import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.core.Registry;
 import net.minecraft.core.component.DataComponentPatch;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 
 import java.util.Optional;
@@ -21,11 +19,13 @@ import java.util.function.Supplier;
 
 public record RotRule(
         ItemPredicate inputs,
-        RotOutcome outcome
+        RotOutcome outcome,
+        int priority
 ) {
     public static final Codec<RotRule> CODEC = RecordCodecBuilder.create(ins -> ins.group(
             ItemPredicate.CODEC.fieldOf("inputs").forGetter(RotRule::inputs),
-            RotOutcome.MAP_CODEC.forGetter(RotRule::outcome)
+            RotOutcome.MAP_CODEC.forGetter(RotRule::outcome),
+            Codec.INT.optionalFieldOf("priority", 1000).forGetter(RotRule::priority)
     ).apply(ins, RotRule::new));
 
     public record RotOutcome(ItemStackTemplate result, boolean keepCount, int rotAfterTicks) {
@@ -35,17 +35,17 @@ public record RotRule(
                 Codec.INT.fieldOf("rot_after_ticks").forGetter(RotOutcome::rotAfterTicks)
         ).apply(ins, RotOutcome::new));
 
-        public static RotOutcome getFallbackRule(ItemStack stack) {
-            if (stack.is(RotTags.NEVER_ROTS)) {
-                return null;
-            }
-
-            if (!stack.has(DataComponents.FOOD) && !stack.is(RotTags.ALWAYS_ROTS)) {
-                return null;
-            }
-
-            return DEFAULT_FOOD_OUTCOME.get();
-        }
+        // public static RotOutcome getFallbackRule(ItemStack stack) {
+        //     if (stack.is(RotTags.NEVER_ROTS)) {
+        //         return null;
+        //     }
+        //
+        //     if (!stack.has(DataComponents.FOOD) && !stack.is(RotTags.ALWAYS_ROTS)) {
+        //         return null;
+        //     }
+        //
+        //     return DEFAULT_FOOD_OUTCOME.get();
+        // }
 
         public ItemStack createResult(ItemStack stack) {
             ItemStack itemStack = result.create();
@@ -55,51 +55,48 @@ public record RotRule(
             return itemStack;
         }
 
-        public static final Supplier<RotOutcome> DEFAULT_FOOD_OUTCOME =
-                Suppliers.memoize(() -> new RotRule.RotOutcome(
-                        new ItemStackTemplate(
-                                ModItems.ROTTEN_FOOD.get().builtInRegistryHolder(),
-                                1,
-                                DataComponentPatch.EMPTY
-                        ),
-                        true,
-                        RottingRegistry.DEFAULT_ROT_AFTER_TICKS
-                ));
+        // public static final Supplier<RotOutcome> DEFAULT_FOOD_OUTCOME =
+        //         Suppliers.memoize(() -> new RotRule.RotOutcome(
+        //                 new ItemStackTemplate(
+        //                         ModItems.ROTTEN_FOOD.get().builtInRegistryHolder(),
+        //                         1,
+        //                         DataComponentPatch.EMPTY
+        //                 ),
+        //                 true,
+        //                 RottingRegistry.DEFAULT_ROT_AFTER_TICKS
+        //         ));
     }
 
     public static Optional<RotOutcome> getRotRule(Level level, ItemStack stack) {
-        if (stack.is(RotTags.NEVER_ROTS)) return Optional.empty();
+        if (stack.is(RotTags.NEVER_ROTS)) {
+            return Optional.empty();
+        }
 
         Registry<RotRule> registry = level.registryAccess()
                 .lookupOrThrow(ModRegistryInit.ROT_RULE);
 
+        RotRule bestRule = null;
+
         for (RotRule rule : registry) {
-            if (rule.matches(stack)) {
-                return Optional.of(rule.outcome);
+            if (!rule.matches(stack)) {
+                continue;
+            }
+
+            if (bestRule == null || rule.priority < bestRule.priority) {
+                bestRule = rule;
             }
         }
 
-        return Optional.empty();
-    }
-
-    public static RotOutcome fallback(ItemLike result, boolean keepCount, int rotAfterTicks) {
-        return new RotOutcome(
-
-                new ItemStackTemplate(
-                        result.asItem().builtInRegistryHolder(),
-                        1,
-                        DataComponentPatch.EMPTY
-                ),
-                keepCount,
-                rotAfterTicks
-        );
+        return bestRule == null
+                ? Optional.empty()
+                : Optional.of(bestRule.outcome);
     }
 
     private boolean matches(ItemStack stack) {
         return inputs.test(stack);
     }
 
-    public ItemStack createResult(ItemStack stack) {
-        return outcome.result.create();
-    }
+    // public ItemStack createResult(ItemStack stack) {
+    //     return outcome.result.create();
+    // }
 }

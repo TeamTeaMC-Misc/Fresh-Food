@@ -215,7 +215,7 @@ public final class ModEvents {
         }
 
         Optional<RotRule.RotOutcome> rotRule = RotRule.getRotRule(player.level(), original);
-        if (rotRule.isEmpty() && RotRule.RotOutcome.getFallbackRule(original) == null)
+        if (rotRule.isEmpty())
             return;
 
         Inventory inv = player.getInventory();

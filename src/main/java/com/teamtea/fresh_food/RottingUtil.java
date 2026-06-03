@@ -107,8 +107,7 @@ public class RottingUtil {
             return new ProcessResult(stack, false);
         }
 
-        RotRule.RotOutcome rule = RotRule.getRotRule(level, stack)
-                .orElseGet(() -> RotRule.RotOutcome.getFallbackRule(stack));
+        RotRule.RotOutcome rule = RotRule.getRotRule(level, stack).orElse(null);
 
         if (rule == null) {
             if (stack.has(ModDataComponents.ROT_DATA.get())) {

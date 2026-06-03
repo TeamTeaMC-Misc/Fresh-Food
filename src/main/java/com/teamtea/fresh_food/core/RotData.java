@@ -98,8 +98,7 @@ public record RotData(long startGameTime, int rotAfterTicks) {
             return rotData;
         }
 
-        RotRule.RotOutcome rule = RotRule.getRotRule(level, stack)
-                .orElseGet(() -> RotRule.RotOutcome.getFallbackRule(stack));
+        RotRule.RotOutcome rule = RotRule.getRotRule(level, stack).orElse(null);
 
         if (rule == null) {
             return null;

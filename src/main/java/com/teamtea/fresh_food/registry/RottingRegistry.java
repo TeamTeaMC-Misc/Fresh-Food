@@ -9,6 +9,8 @@ import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.component.DataComponentPatch;
+import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.Identifier;
@@ -30,6 +32,8 @@ public class RottingRegistry {
     public static final ResourceKey<RotRule> STEW = createKey("stew");
     public static final ResourceKey<RotRule> MUSHROOM = createKey("mushroom");
     public static final ResourceKey<RotRule> MILK = createKey("milk");
+    public static final ResourceKey<RotRule> COMMON = createKey("common");
+    public static final ResourceKey<RotRule> ALWAYS_ROT = createKey("always_rot");
 
     public static final int DEFAULT_ROT_AFTER_TICKS = 20 * 60 * 20 * 7; // 20 min
 
@@ -63,7 +67,8 @@ public class RottingRegistry {
                         input,
                         new RotRule.RotOutcome(template(result),
                                 keepCount,
-                                rotAfterTicks)
+                                rotAfterTicks),
+                        1000
                 )
         );
     }
@@ -149,6 +154,34 @@ public class RottingRegistry {
                 ModItems.SOUR_MILK.get(),
                 false,
                 DEFAULT_ROT_AFTER_TICKS
+        );
+
+        context.register(
+                COMMON,
+                new RotRule(
+                        ItemPredicate.Builder.item()
+                                .withComponents( DataComponentMatchers.Builder.components()
+                                        .any(DataComponents.FOOD)
+                                        .build())
+                                .build(),
+                        new RotRule.RotOutcome(template( ModItems.ROTTEN_FOOD.get()),
+                                false,
+                                DEFAULT_ROT_AFTER_TICKS),
+                        2000
+                )
+        );
+
+        context.register(
+                ALWAYS_ROT,
+                new RotRule(
+                        ItemPredicate.Builder.item()
+                                .of(items,RotTags.ALWAYS_ROTS)
+                                .build(),
+                        new RotRule.RotOutcome(template( ModItems.ROTTEN_FOOD.get()),
+                                false,
+                                DEFAULT_ROT_AFTER_TICKS),
+                        3000
+                )
         );
     }
 }
