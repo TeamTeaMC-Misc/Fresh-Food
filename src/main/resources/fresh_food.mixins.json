@@ -1,0 +1,23 @@
+{
+  "required": true,
+  "package": "com.teamtea.fresh_food.mixin",
+  "mixins": [
+    "common.menu.AbstractContainerMenuMixin",
+    "common.blockentity.AbstractFurnaceBlockEntityMixin",
+    "common.chunk.ChunkMapAccessor",
+    "optional.InventoryHandlerInternalMixin",
+    "optional.InventoryHandlerMixin",
+    "optional.SortingHandlerMixin"
+  ],
+  "client": [
+    "client.GuiGraphicsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "plugin": "com.teamtea.fresh_food.mixin.RotbornMixinPlugin",
+  "minVersion": "0.8",
+  "mixinextras": {
+    "minVersion": "0.5.0"
+  }
+}
