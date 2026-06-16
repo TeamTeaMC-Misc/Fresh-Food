@@ -6,7 +6,9 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.event.entity.EntityLeaveLevelEvent;
+import net.neoforged.neoforge.event.server.ServerStoppingEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.server.ServerLifecycleHooks;
 import org.jspecify.annotations.Nullable;
@@ -44,7 +46,7 @@ public class CommonHook {
     }
 
     @SubscribeEvent
-    public static void checkMenu(PlayerTickEvent.Pre event) {
+    public static void PlayerTickEvent(PlayerTickEvent.Pre event) {
         Player entity = event.getEntity();
         Map<Player, WeakReference<AbstractContainerMenu>> use = entity instanceof ServerPlayer ?
                 server : client;
@@ -56,11 +58,21 @@ public class CommonHook {
     // }
 
     @SubscribeEvent
-    public static void checkMenu(EntityLeaveLevelEvent event) {
+    public static void EntityLeaveLevelEvent(EntityLeaveLevelEvent event) {
         if (event.getEntity() instanceof Player player) {
             Map<Player, WeakReference<AbstractContainerMenu>> use = !event.getLevel().isClientSide() ?
                     server : client;
             use.remove(player);
         }
+    }
+
+    @SubscribeEvent
+    public static void LoggingOut(ClientPlayerNetworkEvent.LoggingOut event) {
+        client.clear();
+    }
+
+    @SubscribeEvent
+    public static void ServerStoppingEvent(ServerStoppingEvent event) {
+        server.clear();
     }
 }
