@@ -17,6 +17,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.ChestType;
 import net.minecraft.world.level.chunk.LevelChunk;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.transfer.ResourceHandler;
 import net.neoforged.neoforge.transfer.access.ItemAccess;
@@ -50,6 +51,9 @@ public class RottingUtil {
         var chunks = ((ChunkMapAccessor) level.getChunkSource().chunkMap)
                 .rotborn$visibleChunkMap()
                 .values();
+
+        // We need to know if its needs
+        if (FMLEnvironment.isProduction()) return;
 
         for (ChunkHolder chunkHolder : chunks) {
             LevelChunk chunk = chunkHolder.getTickingChunk();
