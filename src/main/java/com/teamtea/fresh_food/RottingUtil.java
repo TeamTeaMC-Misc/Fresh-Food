@@ -76,16 +76,18 @@ public class RottingUtil {
             return false;
         }
 
+        // System.out.println(blockEntity+blockEntity.getBlockPos().toShortString());
+
         boolean changed = false;
 
-        if (blockEntity instanceof Container container) {
-            if (container instanceof RandomizableContainerBlockEntity
-                    || blockEntity.is(RotTags.TICKING_CONTAINER)
-            )
-                changed |= processContainer(level, container, gameTime);
+        if (blockEntity instanceof Container container
+                && (container instanceof RandomizableContainerBlockEntity
+                || blockEntity.is(RotTags.TICKING_CONTAINER)
+        )) {
+            changed |= processContainer(level, container, gameTime);
+        } else {
+            changed |= processBlockItemStorage(level, blockEntity, gameTime);
         }
-
-        changed |= processBlockItemStorage(level, blockEntity, gameTime);
 
         if (changed) {
             blockEntity.setChanged();
@@ -98,6 +100,12 @@ public class RottingUtil {
         if (blockEntity instanceof RandomizableContainerBlockEntity randomizable
                 && randomizable.getLootTable() != null) {
             return true;
+        }
+
+        if (!(blockEntity instanceof RandomizableContainerBlockEntity r)) {
+            if (!blockEntity.is(RotTags.TICKING_CONTAINER)) {
+                return true;
+            }
         }
 
         BlockState state = blockEntity.getBlockState();
